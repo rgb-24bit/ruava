@@ -13,6 +13,7 @@
   
   <modules>
     <module>ruava-core</module>
+    <module>ruava-beans</module>
   </modules>
 
   <name>${project.artifactId}</name>
