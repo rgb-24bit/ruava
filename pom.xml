@@ -14,10 +14,13 @@
   <modules>
     <module>ruava-core</module>
     <module>ruava-beans</module>
+    <module>ruava-support</module>
   </modules>
 
   <name>${project.artifactId}</name>
 
+  <description>My java code library</description>
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>

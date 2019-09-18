@@ -4,35 +4,41 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
+  
   <parent>
-    <artifactId>ruava</artifactId>
     <groupId>com.rgbit.ruava</groupId>
+    <artifactId>ruava</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   
-  <artifactId>ruava-beans</artifactId>
+  <artifactId>ruava-support</artifactId>
   <name>${project.artifactId}</name>
+
+  <description>Optional services provided through third party packages</description>
   
-  <description>Provides tool classes related to Bean operations</description>
-  
-  <properties>
-    <esotericsoftware.reflectasm.version>1.11.9</esotericsoftware.reflectasm.version>
-    <cglib.version>3.2.12</cglib.version>
-  </properties>
+  <properties></properties>
 
   <dependencies>
-    <!-- Power reflect tool by github.-->
+    <!-- json package -->
     <dependency>
-      <groupId>com.esotericsoftware</groupId>
-      <artifactId>reflectasm</artifactId>
-      <version>${esotericsoftware.reflectasm.version}</version>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.59</version>
+      <scope>provided</scope>
     </dependency>
-    <!-- cglib -->
+    
     <dependency>
-      <groupId>cglib</groupId>
-      <artifactId>cglib</artifactId>
-      <version>${cglib.version}</version>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.8.5</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>2.9.0</version>
+      <scope>provided</scope>
     </dependency>
     
     <!-- ruava -->
