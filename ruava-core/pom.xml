@@ -14,8 +14,9 @@
   <artifactId>ruava-core</artifactId>
   <name>${project.artifactId}</name>
 
-  <properties>
-  </properties>
+  <description>Core code set, no third-party dependencies</description>
+  
+  <properties></properties>
 
   <dependencies>
     <!-- No other dependency -->
