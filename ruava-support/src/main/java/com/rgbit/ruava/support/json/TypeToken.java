@@ -6,7 +6,7 @@ import java.lang.reflect.Type;
 /**
  * Wrapper for deserializing the target type.
  *
- * @param <T>
+ * @param <T> type parameter
  * @author rgb-24bit
  */
 public abstract class TypeToken<T> {
@@ -33,15 +33,5 @@ public abstract class TypeToken<T> {
 
   public Type getType() {
     return type;
-  }
-
-  /**
-   * Create a TypeToken subclass instance
-   *
-   * @param <T> Parent class type parameter
-   * @return TypeToken subclass instance
-   */
-  public static <T> TypeToken<T> create() {
-    return new TypeToken<T>() {};
   }
 }

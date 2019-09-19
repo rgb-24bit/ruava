@@ -1,7 +1,7 @@
 package com.rgbit.ruava.support.json;
 
 
-import jdk.internal.jline.internal.Nullable;
+import com.rgbit.ruava.core.annotations.Nullable;
 
 import java.lang.reflect.Type;
 import java.util.Objects;
