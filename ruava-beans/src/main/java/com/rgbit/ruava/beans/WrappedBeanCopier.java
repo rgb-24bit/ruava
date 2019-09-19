@@ -4,6 +4,8 @@ import com.esotericsoftware.reflectasm.ConstructorAccess;
 import com.rgbit.ruava.core.annotations.Nullable;
 import net.sf.cglib.beans.BeanCopier;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -86,7 +88,7 @@ public class WrappedBeanCopier {
    */
   public static Object copyProperties(Object source, Object target) {
     BeanCopier copier = getBeanCopier(source.getClass(), target.getClass());
-    copier.copy(source, target, null);
+    copier.copy(source, target, WrappedBeanCopier::convert);
     return target;
   }
 
@@ -101,7 +103,7 @@ public class WrappedBeanCopier {
     String beanKey = generateKey(sourceClass, targetClass);
     BeanCopier copier = null;
     if (!BEAN_COPIER_CACHE.containsKey(beanKey)) {
-      copier = BeanCopier.create(sourceClass, targetClass, false);
+      copier = BeanCopier.create(sourceClass, targetClass, true);
       BEAN_COPIER_CACHE.put(beanKey, copier);
     } else {
       copier = BEAN_COPIER_CACHE.get(beanKey);
@@ -124,7 +126,7 @@ public class WrappedBeanCopier {
    * Get the constructor access method of the target type.
    *
    * @param targetClass target class
-   * @param <T> target type
+   * @param <T>         target type
    * @return Target class's {@link ConstructorAccess}
    */
   private static <T> ConstructorAccess<T> getConstructorAccess(Class<T> targetClass) {
@@ -142,5 +144,30 @@ public class WrappedBeanCopier {
       throw new RuntimeException(format("Create new instance of %s failed: %s", targetClass, e.getMessage()));
     }
     return constructorAccess;
+  }
+
+  /**
+   * Converting a list type field when copying a bean requires a setter method for the field.
+   *
+   * @param value   source list
+   * @param target  target field class
+   * @param context target filed's setter method
+   * @return Copy the obtained object
+   */
+  private static Object convert(Object value, Class target, Object context) {
+    if (Objects.nonNull(value)) {
+      if (value instanceof List<?>) {
+        if (context instanceof Method) {
+          ParameterizedType parameterizedType = (ParameterizedType) ((Method) context).getGenericParameterTypes()[0];
+          return copyPropertiesOfList((List<?>) value, (Class<?>) parameterizedType.getActualTypeArguments()[0]);
+        }
+      }
+
+      // Java Built-in type without ClassLoader
+      if (Objects.nonNull(target.getClassLoader())) {
+        return copyProperties(value, (Class<?>) target);
+      }
+    }
+    return value;
   }
 }
