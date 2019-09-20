@@ -54,10 +54,11 @@ public class DefaultJsonProviderFactory implements JsonProviderFactory {
 
     for (Entry<String, String> entry : SUPPORTED_PROVIDER.entrySet()) {
       try {
-        Class.forName(entry.getKey());
-        clazz = (Class<JsonProvider>) Class.forName(entry.getValue());
-        break;
-      } catch (Exception ignore) {
+        if (ClassUtil.exists(entry.getKey())) {
+          clazz = (Class<JsonProvider>) Class.forName(entry.getValue());
+          break;
+        }
+      } catch (ClassNotFoundException ignore) {
       }
     }
 

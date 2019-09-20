@@ -35,7 +35,6 @@ public class JsonTest {
       new TypeToken<List<TestObject>>() {}.getType());
 
     assertThat(testObjects.size(), equalTo(3));
-    System.out.println(testObjects.get(0));
     assertThat(testObjects.get(0).getName(), equalTo("Test"));
     assertThat(testObjects.get(0).getAge(), equalTo(17));
   }
