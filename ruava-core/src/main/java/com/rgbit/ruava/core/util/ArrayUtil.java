@@ -1,7 +1,5 @@
 package com.rgbit.ruava.core.util;
 
-import java.lang.reflect.Array;
-
 /**
  * Java array util class.
  *
